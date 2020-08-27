@@ -2,16 +2,36 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="PLACEHOLDER.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <Title>Andrea's Drop Ship Quiz</Title>
 </head>
 
 <body>
     <a href="highscores.html">View Highscores</a>
 
-    <h1>Drop Ship Quiz Challenge!</h1>
-    <p>Test your Drop Ship knowledge with this timed quiz!</p>
-    <p>You'll have XXXAMOUNT OF TIME to complete the quiz. Look out! If you answer any question incorrectly then 10 seconds will be taken off your remaining time!</p>
+        <h1>Drop Ship Quiz Challenge!</h1>
+        <p>Test your Drop Ship knowledge with this timed quiz!</p>
+        <p>You'll have XXXAMOUNT OF TIME to complete the quiz. Look out! If you answer any question incorrectly then 10 seconds will be taken off your remaining time!</p>
+
+        <h2>
+            <div class="container">
+                <div id="questionContainer" class="hide"></div>
+                    <div id="question">Question</div>
+                    <div id="answer-buttons" class="btn-grid">
+                        <button class="btn">Answer 1</button>
+                        <button class="btn">Answer 2</button>
+                        <button class="btn">Answer 3</button>
+                        <button class="btn">Answer 4</button>
+    
+                    </div>
+                <div class="controls">
+                    <button id="start-btn" class="start-btn btn">Start</button>
+                    <button id="next-btn" class="next-btn btn hide">Next</button>
+                </div>
+            </div>
+        </h2>
+
+
 
     <script src="questions.js"></script>
 </body>

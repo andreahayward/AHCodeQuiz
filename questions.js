@@ -45,9 +45,9 @@ var quizContainer = document.getElementById('quiz');
 var resultsContainer = document.getElementById('results');
 var submitButton = document.getElementById('submit');
 
-generateQuiz(questions, quizContainer, resultsContainer, submitButton);
+startQuiz(questions, quizContainer, resultsContainer, submitButton);
 
-function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
+function startQuiz(questions, quizContainer, resultsContainer, submitButton){
 
     function showQuestions(questions, quizContainer){
         // we'll need a place to store the output and the answer choices
@@ -55,7 +55,8 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
         var answers;
 
         // for each question...
-        for(var i=0; i<questions.length; i++){
+        for(var i=0; i < questions.length; i++){
+            var response = 
             
             // first reset the list of answers
             answers = [];
@@ -78,12 +79,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
                 '<div class="question">' + questions[i].question + '</div>'
                 + '<div class="answers">' + answers.join('') + '</div>'
             );
-        }
-
-        // finally combine our output list into one string of html and put it on the page
-        quizContainer.innerHTML = output.join('');
-    }
-
+        }}}
 
     function showResults(questions, quizContainer, resultsContainer){
         
@@ -118,13 +114,8 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
         // show number of correct answers out of total
         resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
     }
-
-    // show questions right away
-    showQuestions(questions, quizContainer);
     
     // on submit, show results
     submitButton.onclick = function(){
-        showResults(questions, quizContainer, resultsContainer);
+        showResults(questions, quizContainer, resultsContainer)
     }
-
-}
