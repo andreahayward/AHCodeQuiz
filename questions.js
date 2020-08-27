@@ -1,121 +1,92 @@
-var questions = [
+const questions = [
     {
-        question: "In the Drop Ship retailer flow, what does the retailer send the supplier?",
-        answers: {
-            a: "Inventory",
-            b: "Orders",
-            c: "Shipments",
-            d: "Nothing"
-        },
-        correctAnswer: 'b'
-    },
-    {
-        question: "At a bare minimum, how often should suppliers update their inventory for retailers?",
-        answers: {
-            a: "Once a Day",
-            b: "Once a Week",
-            c: "Twice a Week",
-            d: "Once a Month"
-        },
-        correctAnswer: 'a'
-    },
-    {
-        question: "When a supplier replenishes stock to a company/business, instead of an individual customer, what is that considered?",
-        answers: {
-            a: "Nothing, there is no special term for this",
-            b: "Sending Stock",
-            c: "Business to Business (B2B)",
-            d: "Inventory Management"
-        },
-        correctAnswer: 'c'
-    },
-    {
-        question: "Who provides the best third party technology for Drop Ship?",
-        answers: {
-            a: "No One",
-            b: "Everyone",
-            c: "Logicbroker",
-            d: "I don't understand the question"
-        },
-        correctAnswer: 'c'
+        question: 'In the Drop Ship retailer flow, what does the retailer send the supplier?',
+        answers: [
+            {text: 'Inventory', correct: false },
+            {text: 'Orders', correct: true },
+            {text: 'Shipments', correct: false },
+            {text: 'Nothing', correct: false },
+        ]
     }
 ];
 
-var quizContainer = document.getElementById('quiz');
-var resultsContainer = document.getElementById('results');
-var submitButton = document.getElementById('submit');
+const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
+const questionContainerElement = document.getElementById('question-container')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
 
-startQuiz(questions, quizContainer, resultsContainer, submitButton);
+let shuffledQuestions, currentQuestionIndex
 
-function startQuiz(questions, quizContainer, resultsContainer, submitButton){
+startButton.addEventListener('click', startGame)
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion
+})
 
-    function showQuestions(questions, quizContainer){
-        // we'll need a place to store the output and the answer choices
-        var output = [];
-        var answers;
+function startGame() {
+    startButton.classList.add('hide')
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove('hide')
+    setNextQuestion()
+}
 
-        // for each question...
-        for(var i=0; i < questions.length; i++){
-            var response = 
-            
-            // first reset the list of answers
-            answers = [];
+function setNextQuestion() {
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
+}
 
-            // for each available answer...
-            for(letter in questions[i].answers){
-
-                // ...add an html radio button
-                answers.push(
-                    '<label>'
-                        + '<input type="radio" name="question'+i+'" value="'+letter+'">'
-                        + letter + ': '
-                        + questions[i].answers[letter]
-                    + '</label>'
-                );
-            }
-
-            // add this question and its answers to the output
-            output.push(
-                '<div class="question">' + questions[i].question + '</div>'
-                + '<div class="answers">' + answers.join('') + '</div>'
-            );
-        }}}
-
-    function showResults(questions, quizContainer, resultsContainer){
-        
-        // gather answer containers from our quiz
-        var answerContainers = quizContainer.querySelectorAll('.answers');
-        
-        // keep track of user's answers
-        var userAnswer = '';
-        var numCorrect = 0;
-        
-        // for each question...
-        for(var i=0; i<questions.length; i++){
-
-            // find selected answer
-            userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-            
-            // if answer is correct
-            if(userAnswer===questions[i].correctAnswer){
-                // add to the number of correct answers
-                numCorrect++;
-                
-                // color the answers green
-                answerContainers[i].style.color = 'lightgreen';
-            }
-            // if answer is wrong or blank
-            else{
-                // color the answers red
-                answerContainers[i].style.color = 'red';
-            }
+function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.innerText
+        button.classList.add('btn')
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
         }
+        button.addEventListener('click', selectAnswer)
+        answerButtonsElement.appendChild(button)
+    })
 
-        // show number of correct answers out of total
-        resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+}
+
+function resetState() {
+    clearStatusClass(document.body)
+    nextButton.classList.add('hide')
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
-    
-    // on submit, show results
-    submitButton.onclick = function(){
-        showResults(questions, quizContainer, resultsContainer)
+}
+
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide')
+    } else {
+        startButton.innerText = 'Restart'
+        startButton.classList.remove('hide')
     }
+
+}
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add('correct')
+    } else {
+        element.classList.add('wrong')
+    }
+
+}
+
+function clearStatusClass(element) {
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+}
