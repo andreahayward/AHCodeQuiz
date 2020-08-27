@@ -7,6 +7,15 @@ const questions = [
             {text: 'Shipments', correct: false },
             {text: 'Nothing', correct: false },
         ]
+    },
+    {
+        question: 'At a bare minimum, how often should suppliers update their inventory for retailers?',
+        answers: [
+            {text: 'Once a Day', correct: true },
+            {text: 'Once a Week', correct: false },
+            {text: 'Twice a Week', correct: false },
+            {text: 'Once a Month', correct: false },
+        ]
     }
 ];
 
@@ -15,6 +24,7 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const timerDiv = document.getElementById('timer')
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -30,7 +40,24 @@ function startGame() {
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
+    setTime()
 }
+// starts timer
+var secondsLeft = 10;
+
+function setTime() {
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timerDiv.textContent = secondsLeft + " seconds left to answer!";
+
+    if(secondsLeft === 0) {
+      clearInterval(timerInterval);
+      //sendMessage();
+    }
+
+  }, 1000);
+}
+
 
 function setNextQuestion() {
     resetState()
@@ -41,7 +68,7 @@ function showQuestion(question) {
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
         const button = document.createElement('button')
-        button.innerText = answer.innerText
+        button.innerText = answer.text
         button.classList.add('btn')
         if (answer.correct) {
             button.dataset.correct = answer.correct
