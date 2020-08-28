@@ -6,7 +6,7 @@
 :root {
     --hue-neutral: 200;
     --hue-wrong: 0;
-    --hue-correct: 145;
+    --hue-correct: 140;
 }
 
 body {
@@ -47,7 +47,7 @@ body.wrong {
 
 .btn {
     --hue: var(--hue-neutral);
-    background-color: #ee3224;
+    background-color: whitesmoke;
     border: 1px solid hsl(var(--hue), 100%, 30%);
     border-radius: 5px;
     padding: 5px 10px;

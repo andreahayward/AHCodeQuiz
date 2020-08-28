@@ -16,6 +16,24 @@ const questions = [
             {text: 'Twice a Week', correct: false },
             {text: 'Once a Month', correct: false },
         ]
+    },
+    {
+        question: 'When a supplier replenishes stock to a company/business, instead of an individual customer, what is that considered?',
+        answers: [
+            {text: 'Nothing, there is no special term for this', correct: false},
+            {text: 'Sending Stock', correct: false},
+            {text: 'Business to Business (B2B)', correct: true},
+            {text: 'Inventory Management', correct: false},
+        ]
+    },
+    {
+        question: 'Who provides the best third party technology for Drop Ship?',
+        answers: [
+            {text: 'No One', correct: false},
+            {text: 'Everyone', correct: false},
+            {text: 'Logicbroker', correct: true},
+            {text: 'I do not understand the question', correct: false},
+        ]
     }
 ];
 
@@ -31,7 +49,7 @@ let shuffledQuestions, currentQuestionIndex
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
-    setNextQuestion
+    setNextQuestion()
 })
 
 function startGame() {
@@ -42,6 +60,8 @@ function startGame() {
     setNextQuestion()
     setTime()
 }
+timer
+
 // starts timer
 var secondsLeft = 10;
 
