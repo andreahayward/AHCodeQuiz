@@ -43,6 +43,9 @@ const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 const timerDiv = document.getElementById('timer')
+const score = 0;
+const questionIndex = 0;
+const questionsDiv = document.querySelector("#questionsDiv");
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -63,7 +66,7 @@ function startGame() {
 timer
 
 // starts timer
-var secondsLeft = 10;
+var secondsLeft = 60;
 
 function setTime() {
   var timerInterval = setInterval(function() {
@@ -136,4 +139,8 @@ function setStatusClass(element, correct) {
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
+}
+
+function compare(event) {
+    
 }
