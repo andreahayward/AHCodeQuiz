@@ -45,7 +45,6 @@ const answerButtonsElement = document.getElementById('answer-buttons')
 const timerDiv = document.getElementById('timer')
 const score = 0;
 const questionIndex = 0;
-const questionsDiv = document.querySelector("#questionsDiv");
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -120,7 +119,7 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
-        startButton.innerText = 'Restart'
+        startButton.innerText = 'Finish Quiz'
         startButton.classList.remove('hide')
     }
 
@@ -140,7 +139,13 @@ function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
-
-function compare(event) {
+var getInitials = function (string) {
+    var names = string.split(' '),
+        initials = names[0].substring(0, 1).toUpperCase();
     
-}
+    if (names.length > 1) {
+        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+};
+    
